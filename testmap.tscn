@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjp7kfu4cjd4p"]
+
+[ext_resource type="Texture2D" uid="uid://dy2vf7g2885m1" path="res://AAAAAAAAAAAAA.png" id="1_27nwd"]
+[ext_resource type="PackedScene" uid="uid://c75s2m6eic1vo" path="res://addons/ThirdPersonTemplate/Character/Nodes/PlayerTemplate.tscn" id="2_vgv1b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8l3hl"]
+albedo_texture = ExtResource("1_27nwd")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8pk7t"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bx7lu"]
+
+[node name="Testmap" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8l3hl")
+mesh = SubResource("PlaneMesh_8pk7t")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/MeshInstance3D"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_bx7lu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.119063, 0.992887, 0, -0.992887, 0.119063, 0, 73.5549, 0)
+
+[node name="Player" type="Node3D" parent="."]
+
+[node name="PlayerTemplate" parent="Player" instance=ExtResource("2_vgv1b")]
